@@ -93,11 +93,19 @@ export default function DataTable() {
     getAccounts()
       .then(({ data }) => setAccounts(data))
       .catch((err) => {
-        setAlertObject({
-          message: "Something went wrong",
-          type: "error",
-        });
-        setAlertOpen(true);
+        if (!err.code) {
+          setAlertObject({
+            message: "API Server is not running!",
+            type: "error",
+          });
+          setAlertOpen(true);
+        } else {
+          setAlertObject({
+            message: "Something went wrong",
+            type: "error",
+          });
+          setAlertOpen(true);
+        }
       });
   }, []);
 
